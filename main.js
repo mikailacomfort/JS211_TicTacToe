@@ -34,23 +34,54 @@ const printBoard = () => {
 
 const horizontalWin = () => {
   // Your code here to check for horizontal wins
+  for (let row = 0; row < board.length; row++) {
+    if (board[row][0] === playerTurn && board[row][1] === playerTurn && board[row][2] === playerTurn) {
+      return true;
+    }
+  }
+  return false;
 }
 
 const verticalWin = () => {
   // Your code here to check for vertical wins
+  for (let col = 0; col < board.length; col++) {
+    if (board[0][col] === playerTurn && board[1][col] === playerTurn && board[2][col] === playerTurn) {
+      return true;
+    }
+  }
+  return false;
 }
 
 const diagonalWin = () => {
   // Your code here to check for diagonal wins
+  if ((board[0][0] === playerTurn && board[1][1] === playerTurn && board[2][2] === playerTurn) ||
+  (board[0][2] === playerTurn && board[1][1] === playerTurn && board[2][0] === playerTurn)) {
+  return true;
+}
+return false;
 }
 
 const checkForWin = () => {
+  
   // Your code here call each of the check for types of wins
+    if (horizontalWin() || verticalWin() || diagonalWin()) {
+      console.log('Player ' + playerTurn + ' wins!');
+      return true;
+    }
+    return false;
 }
 
 const ticTacToe = (row, column) => {
   // Your code here to place a marker on the board
   // then check for a win
+  if (board[row][column] === ' ') {
+    board[row][column] = playerTurn;
+    if (!checkForWin()) {
+      playerTurn = (playerTurn === 'X') ? 'O' : 'X';
+    }
+  } else {
+    console.log('This position is already taken. Try again!');
+  }
 }
 
 const getPrompt = () => {
@@ -64,6 +95,7 @@ const getPrompt = () => {
   });
 }
 
+getPrompt();
 
 // Unit Tests
 // You use them run the command: npm test main.js
